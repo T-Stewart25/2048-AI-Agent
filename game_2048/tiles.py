@@ -1,3 +1,4 @@
+# game_2048/tiles.py
 import pygame
 import random
 
@@ -13,7 +14,6 @@ class Tiles:
         self.score_area_height = score_area_height
         self.tiles = []
         self.score = 0
-        self.action_space = ['up', 'down', 'left', 'right']
         self.reset()
 
     def draw_tiles(self, screen):
@@ -34,14 +34,12 @@ class Tiles:
             screen.blit(text, text_rect)
 
     def reset(self):
-        """Resets the board to its initial state."""
         self.tiles = []
         self.score = 0
         self.add_random_tile()
         self.add_random_tile()
 
     def get_board(self):
-        """Returns a 4x4 grid representing the game board with tile values."""
         board = [[0] * 4 for _ in range(4)]
         for tile in self.tiles:
             board[tile.y][tile.x] = tile.value
@@ -76,6 +74,7 @@ class Tiles:
     def move_tiles(self, axis, direction):
         moved = False
         merged_positions = set()
+
         def key_func(tile):
             return (tile.y, tile.x) if axis == 0 else (tile.x, tile.y)
         sorted_tiles = sorted(self.tiles, key=key_func, reverse=(direction == 1))
@@ -113,10 +112,14 @@ class Tiles:
             tiles_copy = [Tile(tile.x, tile.y, tile.value) for tile in self.tiles]
             temp_game = Tiles(self.tile_size, self.score_area_height)
             temp_game.tiles = tiles_copy
-            if temp_game.move_tiles(0 if direction in ['up', 'down'] else 1, 1 if direction in ['up', 'left'] else -1):
+            if direction in ['up', 'down']:
+                axis, dir_val = 0, (1 if direction == 'up' else -1)
+            else:
+                axis, dir_val = 1, (-1 if direction == 'right' else 1)
+            if temp_game.move_tiles(axis, dir_val):
                 return False
         return True
-    
+
     def clone(self):
         cloned_tiles = Tiles(self.tile_size, self.score_area_height)
         cloned_tiles.score = self.score

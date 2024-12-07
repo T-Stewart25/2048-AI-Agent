@@ -1,3 +1,4 @@
+# game_2048/setup.py
 import pygame
 
 def initialize_game():

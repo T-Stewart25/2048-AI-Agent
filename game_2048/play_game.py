@@ -1,3 +1,4 @@
+# game_2048/play_game.py
 import pygame
 from game_2048.setup import initialize_game, draw_grid
 from game_2048.tiles import Tiles

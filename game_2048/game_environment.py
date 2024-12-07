@@ -1,3 +1,4 @@
+# game_2048/game_environment.py
 import numpy as np
 from game_2048.tiles import Tiles, Tile
 
@@ -14,10 +15,8 @@ class Game2048Env:
 
     def step(self, action):
         moved, reward, done = self.game.move(action)
-        # Ensure `moved` is a Boolean and log to confirm its type
         moved = bool(moved)
-        #print(f"[DEBUG] Game2048Env.step() -> Action: {action}, Moved (Boolean): {moved}, Reward: {reward}, Done: {done}")
-        return moved, reward, done  # Explicitly return `moved` as Boolean
+        return moved, reward, done
 
     def get_score(self):
         return self.game.get_score()
