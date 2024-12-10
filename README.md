@@ -1,6 +1,6 @@
 # 2048 AI Project
 
-![AI Playing 2048]()
+![AI Playing 2048](Untitled design.png)
 
 A comprehensive implementation of the 2048 game featuring both Expectimax and Deep Q-Network (DQN) AI agents. The project includes a Tkinter-based GUI launcher for interacting with the game and training agents.
 
