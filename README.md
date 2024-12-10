@@ -4,6 +4,8 @@ An advanced implementation of the 2048 game, featuring **Expectimax** and **Deep
 
 Developed entirely in Python, the project showcases multiple functionalities such as manual gameplay, hyperparameter tuning, multi-threaded training, results aggregation, and real-time demonstrations of the best-performing AI models. The GUI is designed for an intuitive user experience and provides visual feedback during training and evaluation.
 
+To examine the game specifically, please go to the game repository at [2048 Game](https://github.com/T-Stewart25/2048-Game).
+
 ## **Key Features**
 
 - **Expectimax Agent**: Leverages the Expectimax algorithm for strategic decision-making.
@@ -97,16 +99,16 @@ Developed entirely in Python, the project showcases multiple functionalities suc
 ```
 2048-AI-Project/
 ├── agent/
-│   ├── expectimax_agent.py       # Expectimax AI agent
+│   ├── agent.py                  # Expectimax AI agent
 │   ├── dqn_agent.py              # Deep Q-Network agent
 ├── game_2048/
 │   ├── environment.py            # Game environment logic
 │   ├── tiles.py                  # Tile management
 │   ├── setup.py                  # GUI setup
-├── GUI/
-│   └── gui_launcher.py           # Main GUI script
-├── models/                       # Saved AI models
-├── results/                      # Training results and logs
+├── GUI_2048/
+│   ├── hyperparams               # Saved Hyperparameter Values
+│   └──  models/                  # Saved AI models
+├── gui_launcher.py               # Main GUI script
 ├── README.md                     # Project documentation
 ├── requirements.txt              # Python dependencies
 └── LICENSE                       # License information
@@ -143,5 +145,6 @@ This project is licensed under the [MIT License](LICENSE). Feel free to use, mod
 ## **Contact**
 
 - **Author**: Thomas Stewart
-- **Email**: your.email@example.com
-- **GitHub**: [your-username](https://github.com/your-username)
+- **Email**: thomaslstewart1@gmail.com
+- **GitHub**: [T-Stewart25](https://github.com/T-Stewart25)
+- **Personal Portfolio**: [Portfolio](https://thomasstewartpersonal.com)
