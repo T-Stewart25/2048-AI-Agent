@@ -1,4 +1,3 @@
-# agent/agent.py
 import numpy as np
 
 class ExpectimaxAgent:

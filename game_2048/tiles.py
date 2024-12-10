@@ -1,4 +1,3 @@
-# game_2048/tiles.py
 import pygame
 import random
 
@@ -13,13 +12,11 @@ class Tiles:
         self.tile_size = tile_size
         self.score_area_height = score_area_height
         self.tiles = []
-        self.score = 0
         self.reset()
 
     def draw_tiles(self, screen):
         margin = 10
         font = pygame.font.Font(None, 45)
-
         for tile in self.tiles:
             rect = pygame.Rect(
                 tile.x * (self.tile_size + margin) + margin,
@@ -35,12 +32,11 @@ class Tiles:
 
     def reset(self):
         self.tiles = []
-        self.score = 0
         self.add_random_tile()
         self.add_random_tile()
 
     def get_board(self):
-        board = [[0] * 4 for _ in range(4)]
+        board = [[0]*4 for _ in range(4)]
         for tile in self.tiles:
             board[tile.y][tile.x] = tile.value
         return board
@@ -58,14 +54,13 @@ class Tiles:
     def move(self, direction):
         moved = False
         if direction == 'up':
-            moved = self.move_tiles(0, -1)
+            moved = self.move_tiles(axis=0, direction=-1)
         elif direction == 'down':
-            moved = self.move_tiles(0, 1)
+            moved = self.move_tiles(axis=0, direction=1)
         elif direction == 'left':
-            moved = self.move_tiles(1, -1)
+            moved = self.move_tiles(axis=1, direction=-1)
         elif direction == 'right':
-            moved = self.move_tiles(1, 1)
-
+            moved = self.move_tiles(axis=1, direction=1)
         moved = bool(moved)
         if moved:
             self.add_random_tile()
@@ -74,11 +69,9 @@ class Tiles:
     def move_tiles(self, axis, direction):
         moved = False
         merged_positions = set()
-
         def key_func(tile):
             return (tile.y, tile.x) if axis == 0 else (tile.x, tile.y)
         sorted_tiles = sorted(self.tiles, key=key_func, reverse=(direction == 1))
-
         for tile in sorted_tiles:
             while True:
                 next_x = tile.x + (direction if axis == 1 else 0)
@@ -91,7 +84,6 @@ class Tiles:
                     elif neighbor.value == tile.value and (neighbor.x, neighbor.y) not in merged_positions:
                         tile.x, tile.y = next_x, next_y
                         tile.value *= 2
-                        self.score += tile.value
                         self.tiles.remove(neighbor)
                         merged_positions.add((tile.x, tile.y))
                         moved = True
@@ -103,7 +95,7 @@ class Tiles:
         return moved
 
     def get_score(self):
-        return self.score
+        return sum(tile.value for tile in self.tiles)
 
     def check_game_over(self):
         if len(self.tiles) < 16:
@@ -112,16 +104,19 @@ class Tiles:
             tiles_copy = [Tile(tile.x, tile.y, tile.value) for tile in self.tiles]
             temp_game = Tiles(self.tile_size, self.score_area_height)
             temp_game.tiles = tiles_copy
-            if direction in ['up', 'down']:
-                axis, dir_val = 0, (1 if direction == 'up' else -1)
-            else:
-                axis, dir_val = 1, (-1 if direction == 'right' else 1)
-            if temp_game.move_tiles(axis, dir_val):
+            if direction == 'up':
+                m = temp_game.move_tiles(axis=0, direction=-1)
+            elif direction == 'down':
+                m = temp_game.move_tiles(axis=0, direction=1)
+            elif direction == 'left':
+                m = temp_game.move_tiles(axis=1, direction=-1)
+            elif direction == 'right':
+                m = temp_game.move_tiles(axis=1, direction=1)
+            if m:
                 return False
         return True
 
     def clone(self):
         cloned_tiles = Tiles(self.tile_size, self.score_area_height)
-        cloned_tiles.score = self.score
         cloned_tiles.tiles = [Tile(tile.x, tile.y, tile.value) for tile in self.tiles]
         return cloned_tiles

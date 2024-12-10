@@ -1,4 +1,3 @@
-# game_2048/game_environment.py
 import numpy as np
 from game_2048.tiles import Tiles, Tile
 

@@ -1,4 +1,3 @@
-# game_2048/play_game.py
 import pygame
 from game_2048.setup import initialize_game, draw_grid
 from game_2048.tiles import Tiles
@@ -6,7 +5,7 @@ from game_2048.tiles import Tiles
 def run_2048_game():
     screen, grid_size, tile_size, base_colors, score_area_height = initialize_game()
     tiles = Tiles(tile_size, score_area_height)
-    
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -30,7 +29,7 @@ def run_2048_game():
         draw_grid(screen, grid_size, tile_size, base_colors, score_area_height)
         tiles.draw_tiles(screen)
 
-        score = tiles.score
+        score = tiles.get_score()
         font = pygame.font.Font(None, 40)
         score_text = font.render(f"Score: {score}", True, (119, 110, 101))
         screen.blit(score_text, (10, 10))
